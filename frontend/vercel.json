@@ -1,0 +1,11 @@
+{
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/esakshi/summary", "destination": "/data/summary.json" },
+    { "source": "/api/esakshi/allocations", "destination": "/data/allocations.json" },
+    { "source": "/api/esakshi/calamities", "destination": "/data/calamities.json" },
+    { "source": "/api/esakshi/works", "destination": "/data/works.json" },
+    { "source": "/api/esakshi/expenditures", "destination": "/data/expenditures.json" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

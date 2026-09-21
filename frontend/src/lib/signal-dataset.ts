@@ -1,23 +1,17 @@
 import type { DashboardSummary, MPAllocation, CalamityConsent, MPLADWork, WorkExpenditure } from './signal-types';
+import rawSummary from '../data/summary.json';
+import rawSummaryLS from '../data/summary_ls.json';
+import rawSummaryRS from '../data/summary_rs.json';
+import rawAllocations from '../data/allocations.json';
+import rawCalamities from '../data/calamities.json';
+import rawWorks from '../data/works.json';
+import rawExpenditures from '../data/expenditures.json';
 
-export const fallbackSummary: DashboardSummary = {
-  total_allocated_cr: 11676.79,
-  total_mps: 774,
-  works_recommended: 127420,
-  works_sanctioned: 54203,
-  works_completed: 43725,
-  total_calamity_cr: 14.51,
-  model_status: "DATA-DERIVED RISK BANDS"
-};
+export const fallbackSummary: DashboardSummary = rawSummary as DashboardSummary;
+export const fallbackSummaryLS: DashboardSummary = rawSummaryLS as DashboardSummary;
+export const fallbackSummaryRS: DashboardSummary = rawSummaryRS as DashboardSummary;
+export const fallbackAllocations: MPAllocation[] = rawAllocations as MPAllocation[];
+export const fallbackCalamities: CalamityConsent[] = rawCalamities as CalamityConsent[];
+export const fallbackWorks: MPLADWork[] = rawWorks as MPLADWork[];
+export const fallbackExpenditures: WorkExpenditure[] = rawExpenditures as WorkExpenditure[];
 
-export const fallbackAllocations: MPAllocation[] = [
-  { id: 1, mp_name: "Rahul Gandhi", constituency: "Wayanad / Rae Bareli", state: "Kerala", house: "Lok Sabha", allocated_cr: 17.0, utilization_pct: 78.4, risk_score: 22, risk_badge: "Low", recommended_count: 142, sanctioned_count: 85, completed_count: 51 },
-  { id: 2, mp_name: "Narendra Modi", constituency: "Varanasi", state: "Uttar Pradesh", house: "Lok Sabha", allocated_cr: 17.0, utilization_pct: 92.1, risk_score: 8, risk_badge: "Low", recommended_count: 210, sanctioned_count: 180, completed_count: 144 }
-];
-
-export const fallbackCalamities: CalamityConsent[] = [
-  { id: 1, mp_name: "Rahul Gandhi", constituency: "Wayanad", event_name: "Wayanad Landslides 2024", amount_cr: 2.5, date_consented: "2024-08-15" }
-];
-
-export const fallbackWorks: MPLADWork[] = [];
-export const fallbackExpenditures: WorkExpenditure[] = [];

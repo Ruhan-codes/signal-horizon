@@ -1,0 +1,322 @@
+[
+  {
+    "id": 10001,
+    "mp_name": "Shri Gurjeet Singh Aujla",
+    "constituency": "AMRITSAR",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 0.7067,
+    "date_consented": "2025-12-07",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10002,
+    "mp_name": "GURMEET SINGH MEET HAYER",
+    "constituency": "SANGRUR",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 0.75,
+    "date_consented": "2025-11-03",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10003,
+    "mp_name": "Shri Jual Oram",
+    "constituency": "SUNDARGARH (ST)",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 1.0,
+    "date_consented": "2025-10-10",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10004,
+    "mp_name": "Krishna Prasad Tenneti",
+    "constituency": "BAPATLA",
+    "event_name": "Andhra Pradesh rainfall and consequent floods - 2024",
+    "amount_cr": 0.1,
+    "date_consented": "2025-03-26",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10005,
+    "mp_name": "SHAFI PARAMBIL",
+    "constituency": "VADAKARA",
+    "event_name": "Meppadi landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2025-03-02",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10006,
+    "mp_name": "SHAFI PARAMBIL",
+    "constituency": "VADAKARA",
+    "event_name": "Vilangad Landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2025-03-01",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10007,
+    "mp_name": "DR C N MANJUNATH",
+    "constituency": "BANGALORE RURAL",
+    "event_name": "Meppadi landslides 2024",
+    "amount_cr": 0.05,
+    "date_consented": "2025-02-17",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10008,
+    "mp_name": "Andimuthu Raja",
+    "constituency": "NILGIRIS(SC)",
+    "event_name": "Meppadi landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2025-02-05",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10009,
+    "mp_name": "Shri NK Premachandran",
+    "constituency": "KOLLAM",
+    "event_name": "Wayanad landslides 2024",
+    "amount_cr": 0.1,
+    "date_consented": "2024-12-07",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10010,
+    "mp_name": "Shri NK Premachandran",
+    "constituency": "KOLLAM",
+    "event_name": "Vilangad Landslides 2024",
+    "amount_cr": 0.1,
+    "date_consented": "2024-12-07",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10011,
+    "mp_name": "K RADHAKRISHNAN",
+    "constituency": "ALATHUR(SC)",
+    "event_name": "Wayanad landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2024-12-04",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 10012,
+    "mp_name": "BIPLAB KUMAR DEB",
+    "constituency": "TRIPURA WEST",
+    "event_name": "Natural Calamity Affected Area",
+    "amount_cr": 0.25,
+    "date_consented": "2024-09-03",
+    "house": "Lok Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20001,
+    "mp_name": "Shri Hardeep Singh Puri",
+    "constituency": "Uttar Pradesh",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 1.0,
+    "date_consented": "2025-11-17",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20002,
+    "mp_name": "Dr. Ashok Kumar Mittal",
+    "constituency": "Punjab",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 1.0,
+    "date_consented": "2025-11-04",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20003,
+    "mp_name": "Shri Narain Dass Gupta",
+    "constituency": "Delhi",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 0.75,
+    "date_consented": "2025-11-03",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20004,
+    "mp_name": "Shri Sanjay Singh",
+    "constituency": "Delhi",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 1.0,
+    "date_consented": "2025-11-03",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20005,
+    "mp_name": "Shri Harbhajan Singh",
+    "constituency": "Punjab",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 1.0,
+    "date_consented": "2025-11-03",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20006,
+    "mp_name": "Dr. Sandeep Kumar Pathak",
+    "constituency": "Punjab",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 1.0,
+    "date_consented": "2025-10-29",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20007,
+    "mp_name": "Dr. Parmar Jashvantsinh Salamsinh",
+    "constituency": "Gujarat",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 0.25,
+    "date_consented": "2025-10-07",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20008,
+    "mp_name": "Shri Narain Dass Gupta",
+    "constituency": "Delhi",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 0.25,
+    "date_consented": "2025-10-06",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20009,
+    "mp_name": "Dr. Vikramjit Singh Sahney",
+    "constituency": "Punjab",
+    "event_name": "Flood 2025 in Punjab",
+    "amount_cr": 1.0,
+    "date_consented": "2025-09-19",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20010,
+    "mp_name": "Shri P. P. Suneer",
+    "constituency": "Kerala",
+    "event_name": "Meppadi landslides 2024",
+    "amount_cr": 0.75,
+    "date_consented": "2025-04-21",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20011,
+    "mp_name": "Dr. John Brittas",
+    "constituency": "Kerala",
+    "event_name": "Meppadi landslides 2024",
+    "amount_cr": 0.75,
+    "date_consented": "2025-02-17",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20012,
+    "mp_name": "Shri P. P. Suneer",
+    "constituency": "Kerala",
+    "event_name": "Meppadi landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2025-02-03",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20013,
+    "mp_name": "Shri Abdul Wahab",
+    "constituency": "Kerala",
+    "event_name": "Vilangad Landslides 2024",
+    "amount_cr": 0.1,
+    "date_consented": "2024-12-08",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20014,
+    "mp_name": "Smt. P. T. Usha",
+    "constituency": "Kerala",
+    "event_name": "Wayanad landslides 2024",
+    "amount_cr": 0.05,
+    "date_consented": "2024-12-07",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20015,
+    "mp_name": "Smt. P. T. Usha",
+    "constituency": "Kerala",
+    "event_name": "Vilangad Landslides 2024",
+    "amount_cr": 0.05,
+    "date_consented": "2024-12-07",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20016,
+    "mp_name": "Dr. V. Sivadasan",
+    "constituency": "Kerala",
+    "event_name": "Wayanad landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2024-12-04",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20017,
+    "mp_name": "Shri A. A. Rahim",
+    "constituency": "Kerala",
+    "event_name": "Wayanad landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2024-12-04",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20018,
+    "mp_name": "Shri Jose K. Mani",
+    "constituency": "Kerala",
+    "event_name": "Wayanad landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2024-11-25",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20019,
+    "mp_name": "Shri Sandosh Kumar P",
+    "constituency": "Kerala",
+    "event_name": "Wayanad landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2024-10-17",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  },
+  {
+    "id": 20020,
+    "mp_name": "Dr. John Brittas",
+    "constituency": "Kerala",
+    "event_name": "Wayanad landslides 2024",
+    "amount_cr": 0.25,
+    "date_consented": "2024-09-10",
+    "house": "Rajya Sabha",
+    "source_file": "Amount consented for Calamity.pdf"
+  }
+]
