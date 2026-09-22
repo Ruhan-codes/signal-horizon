@@ -29,9 +29,9 @@ export default function BentoGrid({ house, onHouseChange }: { house: 'ALL' | 'LS
                   <button
                     key={h}
                     onClick={() => onHouseChange(h)}
-                    className={`px-3 py-1 rounded-md transition-colors ${house === h ? 'bg-burgundy-700 text-white font-bold' : 'text-white hover:text-white'}`}
+                    className={`px-3 py-1 rounded-md transition-colors ${house === h ? 'bg-burgundy-700 text-white font-bold shadow' : 'text-white hover:text-white'}`}
                   >
-                    {h === 'ALL' ? 'All India' : h === 'LS' ? 'Lok Sabha' : 'Rajya Sabha'}
+                    {h === 'ALL' ? 'All Parliament' : h === 'LS' ? 'Lok Sabha' : 'Rajya Sabha'}
                   </button>
                 ))}
               </div>
@@ -39,12 +39,14 @@ export default function BentoGrid({ house, onHouseChange }: { house: 'ALL' | 'LS
 
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-6">
               <div>
-                <h3 className="text-2xl font-black tracking-tight text-white">Fund Transformation Velocity</h3>
+                <h3 className="text-2xl font-black tracking-tight text-white flex items-center gap-2">
+                  <span>{house === 'ALL' ? 'All Parliament' : house === 'LS' ? 'Lok Sabha' : 'Rajya Sabha'} Fund Velocity</span>
+                </h3>
                 <p className="text-white text-sm mt-1">Lifecycle pipeline from MP recommendation to on-ground civil completion.</p>
               </div>
               {summary && (
                 <div className="text-right">
-                  <span className="text-xs uppercase tracking-wider text-white block">Total Outlay Tracked</span>
+                  <span className="text-xs uppercase tracking-wider text-white block">{house === 'ALL' ? 'Total Parliament' : house === 'LS' ? 'Lok Sabha' : 'Rajya Sabha'} Outlay</span>
                   <span className="font-mono text-xl font-extrabold text-amber-400">{crore(summary.total_allocated_cr)}</span>
                 </div>
               )}
@@ -140,7 +142,6 @@ export default function BentoGrid({ house, onHouseChange }: { house: 'ALL' | 'LS
           </div>
         </div>
 
-        {/* Module 2: Top Sector Allocations (Span 5) */}
         <div className="md:col-span-5 liquid-glass-strong rounded-2xl p-6 border border-white/10 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
@@ -149,106 +150,79 @@ export default function BentoGrid({ house, onHouseChange }: { house: 'ALL' | 'LS
                 <span>Sectoral Telemetry // Donut Chart</span>
               </div>
               <span className="text-xs bg-indigo-500/20 text-indigo-300 px-2.5 py-1 rounded-md font-mono font-bold">
-                ₹5,830 Cr
+                {summary ? crore(summary.total_allocated_cr) : '...'}
               </span>
             </div>
 
             <h3 className="text-2xl font-black tracking-tight text-white mb-1">Priority Sectors</h3>
             <p className="text-white text-sm mb-4">Capital distribution across core civil infrastructure domains.</p>
 
-            {/* Visual Mini Donut Pie Chart Visualization */}
-            <div className="flex items-center justify-center gap-6 p-4 rounded-xl bg-white/[0.02] border border-white/5 mb-4">
-              <div className="relative w-32 h-32 shrink-0">
-                <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-                  {/* Segment 1: Roads (42%) */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="38"
-                    fill="transparent"
-                    stroke="#6366f1"
-                    strokeWidth="14"
-                    strokeDasharray={`${42 * 2.387} 238.7`}
-                    strokeDashoffset="0"
-                    className="transition-all duration-700"
-                  />
-                  {/* Segment 2: Community Halls (24%) */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="38"
-                    fill="transparent"
-                    stroke="#a855f7"
-                    strokeWidth="14"
-                    strokeDasharray={`${24 * 2.387} 238.7`}
-                    strokeDashoffset={`-${42 * 2.387}`}
-                    className="transition-all duration-700"
-                  />
-                  {/* Segment 3: Water (18%) */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="38"
-                    fill="transparent"
-                    stroke="#10b981"
-                    strokeWidth="14"
-                    strokeDasharray={`${18 * 2.387} 238.7`}
-                    strokeDashoffset={`-${(42 + 24) * 2.387}`}
-                    className="transition-all duration-700"
-                  />
-                  {/* Segment 4: Power (16%) */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="38"
-                    fill="transparent"
-                    stroke="#f59e0b"
-                    strokeWidth="14"
-                    strokeDasharray={`${16 * 2.387} 238.7`}
-                    strokeDashoffset={`-${(42 + 24 + 18) * 2.387}`}
-                    className="transition-all duration-700"
-                  />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-[10px] font-mono text-white uppercase">Top 4</span>
-                  <span className="text-sm font-black font-mono text-white">100%</span>
-                </div>
-              </div>
+            {/* Dynamic Donut Pie Chart derived from summary data */}
+            {(() => {
+              const rec = summary?.works_recommended || 1;
+              const sanc = summary?.works_sanctioned || 0;
+              const comp = summary?.works_completed || 0;
+              const pending = Math.max(0, rec - sanc);
+              const inExec = Math.max(0, sanc - comp);
+              const total = rec;
+              const compPct = Math.round((comp / total) * 100);
+              const execPct = Math.round((inExec / total) * 100);
+              const pendingPct = Math.round((pending / total) * 100);
+              const circumference = 238.7;
+              const segments = [
+                { pct: compPct, color: '#10b981', label: 'Completed', textColor: 'text-emerald-400' },
+                { pct: execPct, color: '#6366f1', label: 'In Execution', textColor: 'text-indigo-400' },
+                { pct: pendingPct, color: '#f59e0b', label: 'Pending', textColor: 'text-amber-400' },
+              ];
+              let offset = 0;
+              return (
+                <div className="flex items-center justify-center gap-6 p-4 rounded-xl bg-white/[0.02] border border-white/5 mb-4">
+                  <div className="relative w-32 h-32 shrink-0">
+                    <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+                      {segments.map((seg, i) => {
+                        const dashArray = `${seg.pct * circumference / 100} ${circumference}`;
+                        const dashOffset = -offset * circumference / 100;
+                        offset += seg.pct;
+                        return (
+                          <circle
+                            key={i}
+                            cx="50" cy="50" r="38"
+                            fill="transparent"
+                            stroke={seg.color}
+                            strokeWidth="14"
+                            strokeDasharray={dashArray}
+                            strokeDashoffset={dashOffset}
+                            className="transition-all duration-700"
+                          />
+                        );
+                      })}
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                      <span className="text-[10px] font-mono text-white uppercase">{house === 'ALL' ? 'All' : house}</span>
+                      <span className="text-sm font-black font-mono text-white">{compPct}%</span>
+                    </div>
+                  </div>
 
-              <div className="space-y-1.5 text-xs flex-1 min-w-0">
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-white">
-                    <span className="w-2 h-2 rounded-full bg-indigo-500" /> Roads
-                  </span>
-                  <span className="font-mono font-bold text-indigo-400">42%</span>
+                  <div className="space-y-1.5 text-xs flex-1 min-w-0">
+                    {segments.map((seg, i) => (
+                      <div key={i} className="flex items-center justify-between">
+                        <span className="flex items-center gap-1.5 text-white">
+                          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: seg.color }} />
+                          {seg.label}
+                        </span>
+                        <span className={`font-mono font-bold ${seg.textColor}`}>{seg.pct}%</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-white">
-                    <span className="w-2 h-2 rounded-full bg-purple-500" /> Halls
-                  </span>
-                  <span className="font-mono font-bold text-purple-400">24%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-white">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" /> Water
-                  </span>
-                  <span className="font-mono font-bold text-emerald-400">18%</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1.5 text-white">
-                    <span className="w-2 h-2 rounded-full bg-amber-500" /> Power
-                  </span>
-                  <span className="font-mono font-bold text-amber-400">16%</span>
-                </div>
-              </div>
-            </div>
+              );
+            })()}
 
             <div className="space-y-3">
               {[
-                { name: 'Roads, Pathways & Bridges', pct: 42, amount: '₹2,448 Cr', color: 'bg-indigo-500', works: '43,150 Works' },
-                { name: 'Community Centres & Halls', pct: 24, amount: '₹1,399 Cr', color: 'bg-purple-500', works: '24,650 Works' },
-                { name: 'Drinking Water & Sanitation', pct: 18, amount: '₹1,049 Cr', color: 'bg-emerald-500', works: '18,490 Works' },
-                { name: 'Public Lighting & Grid Support', pct: 16, amount: '₹934 Cr', color: 'bg-amber-500', works: '16,430 Works' },
+                { name: 'Recommended Works', pct: 100, amount: summary?.works_recommended.toLocaleString() || '...', color: 'bg-white/30', works: 'Total Pipeline Entry' },
+                { name: 'Sanctioned Works', pct: summary ? Math.round((summary.works_sanctioned / (summary.works_recommended || 1)) * 100) : 43, amount: summary?.works_sanctioned.toLocaleString() || '...', color: 'bg-indigo-500', works: 'Administrative Cleared' },
+                { name: 'Completed on Ground', pct: summary ? Math.round((summary.works_completed / (summary.works_recommended || 1)) * 100) : 34, amount: summary?.works_completed.toLocaleString() || '...', color: 'bg-emerald-500', works: 'Physical Assets Delivered' },
               ].map((s, idx) => (
                 <div key={idx} className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all">
                   <div className="flex items-center justify-between mb-1.5">
@@ -270,8 +244,8 @@ export default function BentoGrid({ house, onHouseChange }: { house: 'ALL' | 'LS
           </div>
 
           <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-white">
-            <span>eSAKSHI Infrastructure Classification</span>
-            <span className="font-mono text-white font-semibold">₹5,830 Cr Cataloged</span>
+            <span>eSAKSHI Works Pipeline ({house === 'ALL' ? 'All Parliament' : house === 'LS' ? 'Lok Sabha' : 'Rajya Sabha'})</span>
+            <span className="font-mono text-white font-semibold">{summary ? `${((summary.works_completed / (summary.works_recommended || 1)) * 100).toFixed(1)}% End-to-End` : 'Computing...'}</span>
           </div>
         </div>
 
@@ -306,11 +280,11 @@ export default function BentoGrid({ house, onHouseChange }: { house: 'ALL' | 'LS
                 <span className="text-[11px] text-rose-300 font-mono mt-0.5 block">{calamities.length} Statutory Consents</span>
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                <span className="text-xs uppercase text-white tracking-wider font-semibold block mb-1">Major Triggers</span>
+                <span className="text-xs uppercase text-white tracking-wider font-semibold block mb-1">Top Disaster</span>
                 <span className="text-sm font-bold text-white block truncate">
-                  Punjab Floods, Wayanad
+                  {calamities.length > 0 ? calamities.sort((a, b) => b.amount_cr - a.amount_cr)[0].event_name : 'None'}
                 </span>
-                <span className="text-[11px] text-white font-mono mt-0.5 block">State Emergency Declarations</span>
+                <span className="text-[11px] text-white font-mono mt-0.5 block">Highest Relief Outlay</span>
               </div>
             </div>
 

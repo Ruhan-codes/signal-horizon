@@ -32,12 +32,6 @@ interface VisualAnalyticsHubProps {
   onHouseChange: (house: 'ALL' | 'LS' | 'RS') => void;
 }
 
-const SECTOR_DATA = [
-  { name: 'Roads & Bridges', amount: 2448, pct: 42, color: '#6366f1', works: 43150 },
-  { name: 'Community Halls', amount: 1399, pct: 24, color: '#a855f7', works: 24650 },
-  { name: 'Drinking Water & Sanitation', amount: 1049, pct: 18, color: '#10b981', works: 18490 },
-  { name: 'Lighting & Power', amount: 934, pct: 16, color: '#f59e0b', works: 16430 },
-];
 
 export default function VisualAnalyticsHub({
   summary,
@@ -184,26 +178,11 @@ export default function VisualAnalyticsHub({
   }, [allocations]);
 
   const housePieData = useMemo(() => {
-    let ls = 0;
-    let rs = 0;
-    let lsOutlay = 0;
-    let rsOutlay = 0;
-
-    allocations.forEach((item) => {
-      if (item.house === 'Lok Sabha') {
-        ls += 1;
-        lsOutlay += item.allocated_cr;
-      } else {
-        rs += 1;
-        rsOutlay += item.allocated_cr;
-      }
-    });
-
     return [
-      { name: 'Lok Sabha', value: ls, outlay: Number(lsOutlay.toFixed(2)), color: '#6366f1' },
-      { name: 'Rajya Sabha', value: rs, outlay: Number(rsOutlay.toFixed(2)), color: '#a855f7' },
+      { name: 'Lok Sabha (543 MPs)', value: 543, outlay: 8315.46, color: house === 'RS' ? '#3730a3' : '#6366f1' },
+      { name: 'Rajya Sabha (231 MPs)', value: 231, outlay: 3361.33, color: house === 'LS' ? '#581c87' : '#a855f7' },
     ];
-  }, [allocations]);
+  }, [house]);
 
   const calamityPieData = useMemo(() => {
     const map = new Map<string, number>();
@@ -220,6 +199,17 @@ export default function VisualAnalyticsHub({
     }));
   }, [calamities]);
 
+  const sectorData = useMemo(() => {
+    const totalCr = summary?.total_allocated_cr || (house === 'LS' ? 8315.46 : house === 'RS' ? 3361.33 : 11676.79);
+    const totalWorks = summary?.works_recommended || (house === 'LS' ? 102758 : house === 'RS' ? 24662 : 127420);
+    return [
+      { name: 'Roads & Bridges', amount: Math.round(totalCr * 0.42), pct: 42, color: '#6366f1', works: Math.round(totalWorks * 0.42) },
+      { name: 'Community Halls', amount: Math.round(totalCr * 0.24), pct: 24, color: '#a855f7', works: Math.round(totalWorks * 0.24) },
+      { name: 'Drinking Water & Sanitation', amount: Math.round(totalCr * 0.18), pct: 18, color: '#10b981', works: Math.round(totalWorks * 0.18) },
+      { name: 'Lighting & Power', amount: Math.round(totalCr * 0.16), pct: 16, color: '#f59e0b', works: Math.round(totalWorks * 0.16) },
+    ];
+  }, [summary, house]);
+
   return (
     <section id="visual-hub" className="py-12 px-4 max-w-7xl mx-auto">
       {/* Header Banner */}
@@ -230,10 +220,19 @@ export default function VisualAnalyticsHub({
             <span>Interactive Visual Analytics Engine</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black tracking-tight text-white flex items-center gap-3">
-            Parliamentary Telemetry Visualizer
+            <span>
+              {house === 'ALL'
+                ? 'Parliamentary Telemetry Visualizer'
+                : house === 'LS'
+                ? 'Lok Sabha Telemetry Visualizer'
+                : 'Rajya Sabha Telemetry Visualizer'}
+            </span>
+            <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              {house === 'ALL' ? '774 MPs' : house === 'LS' ? '543 MPs' : '231 MPs'}
+            </span>
           </h2>
           <p className="text-white text-sm mt-1 max-w-2xl">
-            Evaluate ₹11,670+ Cr of public allocations through comprehensive visual models:
+            Evaluate{summary ? ` ₹${summary.total_allocated_cr.toLocaleString('en-IN', { maximumFractionDigits: 0 })} Cr` : ' ₹11,670+ Cr'} of {house === 'ALL' ? 'All Parliament' : house === 'LS' ? 'Lok Sabha' : 'Rajya Sabha'} allocations through comprehensive visual models:
             dynamic flowcharts, state bar charts, utilization histograms, and sectoral pie distributions.
           </p>
         </div>
@@ -760,7 +759,7 @@ export default function VisualAnalyticsHub({
                   <span>Sectoral Outlay Pie Chart</span>
                 </div>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-bold">
-                  ₹5,830 Cr TRACKED
+                  ₹{Math.round(summary?.total_allocated_cr || (house === 'LS' ? 8315 : house === 'RS' ? 3361 : 11676)).toLocaleString()} Cr TRACKED
                 </span>
               </div>
               <h3 className="text-xl font-bold text-white mb-1">Public Works Domain Breakdown</h3>
@@ -770,7 +769,7 @@ export default function VisualAnalyticsHub({
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
-                      data={SECTOR_DATA}
+                      data={sectorData}
                       dataKey="amount"
                       nameKey="name"
                       cx="50%"
@@ -779,7 +778,7 @@ export default function VisualAnalyticsHub({
                       innerRadius={50}
                       paddingAngle={3}
                     >
-                      {SECTOR_DATA.map((entry, index) => (
+                      {sectorData.map((entry, index) => (
                         <Cell key={`sector-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
@@ -803,7 +802,7 @@ export default function VisualAnalyticsHub({
 
             {/* Mini Legend Summary */}
             <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-white/5 text-[11px]">
-              {SECTOR_DATA.map((s, idx) => (
+              {sectorData.map((s, idx) => (
                 <div key={idx} className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: s.color }} />
                   <span className="text-white truncate">{s.name}:</span>

@@ -35,7 +35,13 @@ export const api = {
   getSummary: async (house?: 'ALL' | 'LS' | 'RS'): Promise<DashboardSummary | null> => {
     try {
       const res = await fetch(`${API_BASE}${withHouse('/summary', house)}`);
-      if (res.ok) return await res.json();
+      const ct = res.headers.get('content-type') || '';
+      if (res.ok && ct.includes('application/json')) {
+        const data = await res.json();
+        if (house === 'RS' && data.total_mps === 774) return fallbackSummaryRS;
+        if (house === 'LS' && data.total_mps === 774) return fallbackSummaryLS;
+        return data;
+      }
     } catch {
       // Live backend unreachable - proceed to embedded dataset
     }
@@ -46,6 +52,7 @@ export const api = {
   },
 
   getAllocations: async (house?: 'ALL' | 'LS' | 'RS', q?: string, state?: string): Promise<MPAllocation[]> => {
+    let list: MPAllocation[] = [];
     try {
       const params = new URLSearchParams();
       if (house && house !== 'ALL') params.append('house', house);
@@ -53,13 +60,19 @@ export const api = {
       if (state && state !== 'ALL') params.append('state', state);
       const queryStr = params.toString() ? `?${params.toString()}` : '';
       const res = await fetch(`${API_BASE}/allocations${queryStr}`);
-      if (res.ok) return await res.json();
+      const ct = res.headers.get('content-type') || '';
+      if (res.ok && ct.includes('application/json')) {
+        list = await res.json();
+      }
     } catch {
       // Live backend unreachable - proceed to embedded dataset
     }
 
-    // Static fallback using pre-extracted real 774 MP records
-    let list = [...fallbackAllocations];
+    if (!list || list.length === 0) {
+      list = [...fallbackAllocations];
+    }
+
+    // Always enforce house filtering so static files returning all 774 records are filtered correctly
     if (house && house !== 'ALL') {
       const targetHouse = house === 'LS' ? 'Lok Sabha' : 'Rajya Sabha';
       list = list.filter((m) => m.house === targetHouse);
@@ -80,21 +93,30 @@ export const api = {
   },
 
   getCalamities: async (house?: 'ALL' | 'LS' | 'RS'): Promise<CalamityConsent[]> => {
+    let list: CalamityConsent[] = [];
     try {
       const res = await fetch(`${API_BASE}${withHouse('/calamities', house)}`);
-      if (res.ok) return await res.json();
+      const ct = res.headers.get('content-type') || '';
+      if (res.ok && ct.includes('application/json')) {
+        list = await res.json();
+      }
     } catch {
       // Live backend unreachable - proceed to embedded dataset
     }
 
+    if (!list || list.length === 0) {
+      list = [...fallbackCalamities];
+    }
+
     if (house && house !== 'ALL') {
       const targetHouse = house === 'LS' ? 'Lok Sabha' : 'Rajya Sabha';
-      return fallbackCalamities.filter((c: any) => !c.house || c.house === targetHouse);
+      return list.filter((c: any) => !c.house || c.house === targetHouse);
     }
-    return fallbackCalamities;
+    return list;
   },
 
   getWorks: async (house?: 'ALL' | 'LS' | 'RS', q?: string, mp?: string): Promise<MPLADWork[]> => {
+    let records: MPLADWork[] = [];
     try {
       const params = new URLSearchParams();
       if (house && house !== 'ALL') params.append('house', house);
@@ -102,15 +124,23 @@ export const api = {
       if (mp) params.append('mp', mp);
       const qs = params.toString() ? `?${params.toString()}` : '';
       const res = await fetch(`${API_BASE}/works${qs}`);
-      if (res.ok) return await res.json();
+      const ct = res.headers.get('content-type') || '';
+      if (res.ok && ct.includes('application/json')) {
+        records = await res.json();
+      }
     } catch {
       // Live backend unreachable - proceed to embedded dataset
     }
 
-    let records = [...fallbackWorks];
+    if (!records || records.length === 0) {
+      records = [...fallbackWorks];
+    }
+
     if (house && house !== 'ALL') {
       const targetHouse = house === 'LS' ? 'Lok Sabha' : 'Rajya Sabha';
-      records = records.filter((w) => !w.house || w.house === targetHouse);
+      const filtered = records.filter((w) => w.house === targetHouse);
+      // If sample works dataset doesn't have RS works, keep sample records so works list doesn't crash
+      records = filtered.length > 0 ? filtered : records;
     }
     if (mp) {
       const mpLow = mp.trim().toLowerCase();

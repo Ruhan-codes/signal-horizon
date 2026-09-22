@@ -96,12 +96,44 @@ export default function TerminalScreener({
             <Filter size={14} />
             <span>Parliamentary Screener Engine</span>
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-white">Constituency Risk Terminal</h2>
-          <p className="text-sm text-white mt-1">Select a risk category box below to filter parliamentarians and prioritize audits.</p>
+          <h2 className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
+            <span>
+              {house === 'ALL'
+                ? 'Parliamentary Risk Terminal'
+                : house === 'LS'
+                ? 'Lok Sabha Risk Terminal'
+                : 'Rajya Sabha Risk Terminal'}
+            </span>
+            <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              {allocations.length} Members
+            </span>
+          </h2>
+          <p className="text-sm text-white mt-1">
+            Filter {house === 'ALL' ? 'all parliamentarians' : house === 'LS' ? '543 Lok Sabha MPs' : '231 Rajya Sabha MPs'} by risk category to prioritize civic audits.
+          </p>
         </div>
 
-        {/* Global Search & State Filter */}
+        {/* Global Search, State Filter & House Switcher */}
         <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          {onHouseChange && (
+            <div className="flex bg-white/5 p-1 rounded-lg border border-white/10 text-xs">
+              {(['ALL', 'LS', 'RS'] as const).map((h) => (
+                <button
+                  key={h}
+                  onClick={() => {
+                    onHouseChange(h);
+                    setCurrentPage(1);
+                  }}
+                  className={`px-3 py-1.5 rounded-md font-bold transition-all ${
+                    house === h ? 'bg-burgundy-700 text-white shadow-lg' : 'text-white hover:text-white'
+                  }`}
+                >
+                  {h === 'ALL' ? 'All Parliament' : h === 'LS' ? 'Lok Sabha' : 'Rajya Sabha'}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div className="relative flex-1 md:w-64 md:flex-initial">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white" size={16} />
             <input
@@ -144,7 +176,9 @@ export default function TerminalScreener({
             <div className="text-4xl font-black font-mono text-white tracking-tight">
               {allocations.length}
             </div>
-            <p className="text-xs text-white mt-1">Total Parliamentarians Monitored</p>
+            <p className="text-xs text-white mt-1">
+              {house === 'ALL' ? 'All Parliamentarians' : house === 'LS' ? 'Lok Sabha MPs' : 'Rajya Sabha MPs'} Monitored
+            </p>
           </div>
 
           {riskCategory === 'ALL' && onHouseChange && (
